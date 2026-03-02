@@ -1,13 +1,40 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Stack;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
+public class PalindromeCheckerApp {
+
+  // UC6: Queue + Stack Based Palindrome Check
+  public static void main(String[] args) {
+
+    String input = "madam";   // Hardcoded string
+
+    Queue<Character> queue = new LinkedList<>();
+    Stack<Character> stack = new Stack<>();
+
+    // Enqueue and push characters
+    for (int i = 0; i < input.length(); i++) {
+      char ch = input.charAt(i);
+      queue.add(ch);   // FIFO
+      stack.push(ch);  // LIFO
+    }
+
+    boolean isPalindrome = true;
+
+    // Compare dequeue (queue) and pop (stack)
+    while (!queue.isEmpty()) {
+      if (queue.remove() != stack.pop()) {
+        isPalindrome = false;
+        break;
+      }
+    }
+
+    System.out.println("Input String : " + input);
+
+    if (isPalindrome) {
+      System.out.println("Result : Palindrome");
+    } else {
+      System.out.println("Result : Not a Palindrome");
+    }
   }
 }
