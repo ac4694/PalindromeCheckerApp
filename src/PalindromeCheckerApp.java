@@ -1,13 +1,90 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+public class PalindromeCheckerApp {
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
+  // Node class for singly linked list
+  static class Node {
+    char data;
+    Node next;
+
+    Node(char data) {
+      this.data = data;
+      this.next = null;
+    }
+  }
+
+  // Build linked list from string
+  public static Node buildList(String str) {
+    Node head = null, tail = null;
+
+    for (char c : str.toCharArray()) {
+      Node newNode = new Node(c);
+
+      if (head == null) {
+        head = tail = newNode;
+      } else {
+        tail.next = newNode;
+        tail = newNode;
+      }
+    }
+    return head;
+  }
+
+  // Reverse linked list
+  public static Node reverse(Node head) {
+    Node prev = null;
+    Node current = head;
+
+    while (current != null) {
+      Node next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+    }
+    return prev;
+  }
+
+  // Check palindrome using linked list
+  public static boolean isPalindrome(Node head) {
+
+    Node slow = head;
+    Node fast = head;
+
+    // Find middle
+    while (fast != null && fast.next != null) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+
+    // Reverse second half
+    Node secondHalf = reverse(slow);
+
+    Node firstHalf = head;
+
+    // Compare halves
+    while (secondHalf != null) {
+      if (firstHalf.data != secondHalf.data) {
+        return false;
+      }
+      firstHalf = firstHalf.next;
+      secondHalf = secondHalf.next;
+    }
+
+    return true;
+  }
+
+  public static void main(String[] args) {
+
+    String input = "madam";
+
+    Node head = buildList(input);
+
+    boolean result = isPalindrome(head);
+
+    System.out.println("Input String : " + input);
+
+    if (result) {
+      System.out.println("Result : Palindrome");
+    } else {
+      System.out.println("Result : Not a Palindrome");
+    }
   }
 }
