@@ -1,13 +1,45 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+import java.util.Stack;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
+// Palindrome service class
+class PalindromeChecker {
+
+  public boolean checkPalindrome(String input) {
+
+    Stack<Character> stack = new Stack<>();
+
+    // Push characters into stack
+    for (char c : input.toCharArray()) {
+      stack.push(c);
+    }
+
+    // Compare with original
+    for (char c : input.toCharArray()) {
+      if (c != stack.pop()) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+}
+
+// Main application class
+public class PalindromeCheckerApp {
+
+  public static void main(String[] args) {
+
+    String input = "madam";
+
+    PalindromeChecker checker = new PalindromeChecker();
+
+    boolean result = checker.checkPalindrome(input);
+
+    System.out.println("Input String : " + input);
+
+    if (result) {
+      System.out.println("Result : Palindrome");
+    } else {
+      System.out.println("Result : Not a Palindrome");
+    }
   }
 }
